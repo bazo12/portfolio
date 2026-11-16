@@ -1,0 +1,9 @@
+*.xlsx
+*.xls
+*.csv
+*.db
+*.env
+dist/
+build/
+*.exe
+__pycache__/

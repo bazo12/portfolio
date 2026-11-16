@@ -1,0 +1,6 @@
+*.pkt
+*.gns3
+*.gns3project
+*.pcap
+*.pcapng
+.venv/
