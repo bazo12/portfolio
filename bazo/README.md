@@ -1,49 +1,31 @@
-# Bazo — preuves de parcours TER, sans tableur
+# Bazo
 
-**Anglais, une ligne :** production Linux service that watches regional trains, alerts the right station, and files delay/cancellation evidence as a PDF.
+Radar TER Grand Est. **En service.**
 
-Service tiers, non affilié à la SNCF. Région d'exploitation : Grand Est (Sillon lorrain et axes voisins).
+Cinq processus Linux, redémarrés par systemd :
 
-## Le besoin
-
-Un abonné TER qui veut la Garantie Fiabilité doit prouver des retards et des suppressions sur **ses** gares et **ses** horaires. Relever ça à la main, train par train, ne tient pas un mois. Les applis grand public ne produisent pas un dossier daté, filtrable, exportable.
-
-Bazo fait ce relevé à la place de l'usager.
-
-## Ce que l'usager obtient
-
-- Alertes Telegram seulement si le train concerne **sa** montée, **sa** descente et **son** créneau (pas la gare d'à côté, pas la ligne d'à côté).
-- Enregistrement automatique des retards d'au moins 10 minutes et des suppressions.
-- Dossier mensuel : PDF + texte prêt à coller dans le formulaire SNCF.
-- Statut du mois : minutes cumulées, nombre de suppressions, seuil de garantie.
-
-Déclarer un trajet reste possible. Ce n'est plus une condition pour qu'une suppression radar entre dans le dossier.
-
-## Ce que l'exploitation exige
-
-| Brique | Rôle |
+| Processus | Job |
 |---|---|
-| Radar (`scanner_ligne.py`) | Interroge l'API horaires, détecte retard et suppression, écrit l'historique |
-| Filtre gares (`bazo_geo.py`, `bazo_metier.py`) | Même axe que le profil, correspondance de nom la plus précise, sens du train jusqu'à la gare de descente |
-| Bot Telegram | Profil, alertes, PDF |
-| API FastAPI | App mobile / PWA, auth par jeton, admin séparé |
-| SQLite | Historique, trajets, inscriptions. PostgreSQL prévu, pas obligatoire pour tourner |
-| systemd | `bazo-bot`, `bazo-radar`, `bazo-api` redémarrent seuls |
-| Quota | Budget quotidien d'appels API, rotation des axes, réserve pour le check-in |
+| `bazo-radar` | scan horaires, retards ≥ 10 min, suppressions |
+| `bazo-bot` | Telegram : profil, alerte, PDF |
+| `bazo-api` | FastAPI — app / PWA |
+| `bazo-mobile` | appli |
+| `bazo-temps-reel` | fusion SNCF / CFL, reports, grève |
 
-Le filtre n'est pas une liste de gares en dur. Il calcule le segment entre la gare de départ et la gare d'arrivée du profil. Une suppression en amont de la montée (la gare précédente sur l'axe) ne part pas à l'usager. Une suppression sur sa montée, ou entre sa montée et sa descente, dans la fenêtre d'alerte, est notifiée **et** comptée.
+L'usager n'est alerté que si le train passe par **sa** montée et **sa** descente, dans **son** créneau. Le dossier mensuel (PDF + texte) part dans le formulaire Garantie Fiabilité.
 
-## Pourquoi c'est un sujet d'admin système
+```mermaid
+flowchart LR
+  API[API horaires] --> Radar
+  Radar --> Filtre[Segment montée → descente]
+  Filtre --> Bot[Telegram]
+  Filtre --> Base[(SQLite)]
+  Base --> PDF[Dossier mensuel]
+  Bot --> PDF
+```
 
-- Un processus qui tourne 24 h/24 sur un VPS, avec journalisation et redémarrage.
-- Une API externe limitée : il faut choisir quoi scanner, sinon le quota est mort à midi.
-- Des données personnelles (identité Telegram, gares, horaires) : auth, pas de secrets dans le dépôt, export/suppression prévus.
-- Un document juridique-pratique (le PDF) qui doit coller à ce que l'usager a vraiment reçu comme alerte.
+Quota API quotidien. Rotation des axes. Pas de liste de gares en dur : le segment se calcule sur le profil.
 
-## Ce dépôt
+Service tiers, non affilié SNCF. Sillon lorrain et axes voisins.
 
-Vitrine relue. Elle ne contient pas le code de production, pas de base, pas de jeton. Le fichier `.env.example` ne liste que des noms de variables, avec des valeurs vides.
-
-## Hors dépôt public
-
-Base de production, sauvegardes, archives GTFS, journaux, fichier de secrets du serveur, identifiant admin.
+Ce dossier est la vitrine. Pas le code de production, pas la base, pas les jetons. Variables vides dans `.env.example`.

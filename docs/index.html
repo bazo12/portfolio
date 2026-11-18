@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bazo12</title>
+  <meta name="description" content="Bazo en service. Conciergerie terrain. Labs réseaux.">
+  <style>
+    :root {
+      --bg: #101114;
+      --fg: #ecece8;
+      --mute: #9a9a93;
+      --line: #2a2a28;
+      --live: #d4a017;
+      --wait: #6e6e68;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); }
+    body {
+      font: 16px/1.45 "Segoe UI", system-ui, sans-serif;
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+    header { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 40px; }
+    .mark { font-weight: 600; letter-spacing: 0.08em; font-size: 13px; }
+    .meta { color: var(--mute); font-size: 13px; }
+    h1 { font-size: 28px; font-weight: 500; letter-spacing: -0.03em; margin: 0 0 48px; max-width: 22ch; }
+    .hero { border-top: 1px solid var(--line); padding: 28px 0 32px; }
+    .hero h2 { font-size: 13px; font-weight: 600; letter-spacing: 0.12em; margin: 0 0 8px; }
+    .status {
+      display: inline-block;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      font-weight: 600;
+      color: var(--live);
+      margin-bottom: 12px;
+    }
+    .status.wait { color: var(--wait); }
+    .hero p { margin: 0 0 12px; max-width: 46ch; }
+    .procs { color: var(--mute); font-size: 13px; font-variant-numeric: tabular-nums; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 1px solid var(--line); }
+    article { padding: 28px 0 8px; }
+    article:first-child { padding-right: 28px; border-right: 1px solid var(--line); }
+    article:last-child { padding-left: 28px; }
+    h3 { font-size: 13px; font-weight: 600; letter-spacing: 0.12em; margin: 0 0 8px; }
+    article p { margin: 0; color: var(--fg); }
+    a { color: var(--fg); text-underline-offset: 3px; }
+    a:hover { color: var(--live); }
+    footer { margin-top: 56px; color: var(--mute); font-size: 13px; border-top: 1px solid var(--line); padding-top: 20px; }
+    @media (max-width: 640px) {
+      header { flex-direction: column; gap: 6px; }
+      .grid { grid-template-columns: 1fr; }
+      article:first-child, article:last-child { padding: 28px 0 8px; border: 0; }
+      article:first-child { border-bottom: 1px solid var(--line); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="mark">BAZO12</div>
+    <div class="meta">Grand Est · Linux · Windows · Réseaux</div>
+  </header>
+
+  <h1>Des outils qui tournent. Pas des pages qui expliquent.</h1>
+
+  <section class="hero">
+    <div class="status">EN SERVICE</div>
+    <h2><a href="https://github.com/bazo12/portfolio/tree/main/bazo">Bazo</a></h2>
+    <p>Radar TER Grand Est. Alerte seulement si le train passe par la montée et la descente du profil. Dossier PDF pour la Garantie Fiabilité.</p>
+    <p class="procs">bazo-radar · bazo-bot · bazo-api · bazo-mobile · bazo-temps-reel</p>
+  </section>
+
+  <div class="grid">
+    <article>
+      <div class="status wait">POSTE WINDOWS</div>
+      <h3><a href="https://github.com/bazo12/portfolio/tree/main/conciergerie-zenith">Conciergerie Zénith</a></h3>
+      <p>114+ résidents. Exécutable autonome. L’Excel partagé n’est plus le logiciel.</p>
+    </article>
+    <article>
+      <div class="status wait">LABS</div>
+      <h3><a href="https://github.com/bazo12/portfolio/tree/main/network-security-labs">Réseaux · CIEL</a></h3>
+      <p>Découpe de sous-réseaux, diagnostic local, hygiène. Les .pkt restent sur le PC.</p>
+    </article>
+  </div>
+
+  <footer>
+    Vitrine publique. Aucun jeton, aucune base, aucun nom de résident.
+    <a href="https://github.com/bazo12/portfolio">github.com/bazo12/portfolio</a>
+  </footer>
+</body>
+</html>
