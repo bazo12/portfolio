@@ -1,0 +1,15 @@
+{
+  "name": "Bazo — ton TER, en clair",
+  "short_name": "Bazo",
+  "description": "Le Sillon Lorrain en temps réel, tes retards comptés à la minute et ton attestation Garantie Fiabilité.",
+  "start_url": "/app/",
+  "scope": "/app/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F7F4EE",
+  "theme_color": "#1B2A4A",
+  "lang": "fr",
+  "icons": [
+    { "src": "/app/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

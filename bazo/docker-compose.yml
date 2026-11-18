@@ -1,0 +1,35 @@
+# Infrastructure Bazo — PostgreSQL + Redis (M2/M11)
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: bazo
+      POSTGRES_PASSWORD: bazo_dev_change_me
+      POSTGRES_DB: bazo
+    ports:
+      - "5432:5432"
+    volumes:
+      - bazo_pg_data:/var/lib/postgresql/data
+      - ./postgres/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U bazo -d bazo"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - bazo_redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+volumes:
+  bazo_pg_data:
+  bazo_redis_data:

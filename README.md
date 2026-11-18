@@ -1,12 +1,14 @@
 # Bazo12
 
-Trois outils. Un en service 24h/24. Deux venus du terrain et du BTS.
+Cinq projets. Un en service 24h/24.
 
 | | | |
 |---|---|---|
-| **[Bazo](./bazo/)** | Radar TER Grand Est | **en service** — bot, radar, API, mobile, temps réel |
-| **[Conciergerie Zénith](./conciergerie-zenith/)** | 114+ résidents, plus d'Excel | exécutable Windows — sources sur le poste |
-| **[Labs réseaux](./network-security-labs/)** | Adressage, diagnostic, hygiène | scripts ici, topologies à déposer |
+| **[Bazo](./bazo/)** | Radar TER Grand Est | **en service** — bot, radar, API, PWA |
+| **[Bazo Mobile](./bazo-mobile/)** | iOS / Android Flutter | check-in, PDF, même API |
+| **[Traversée](./traversee/)** | Maquette Moselle | tarifs, pôles, parcours habitant |
+| **[Conciergerie Zénith](./conciergerie-zenith/)** | 114+ résidents | exe Windows — sources sur le poste |
+| **[Labs réseaux](./network-security-labs/)** | BTS CIEL | adressage, diagnostic, hygiène |
 
 Page : [bazo12.github.io/portfolio](https://bazo12.github.io/portfolio/)
 

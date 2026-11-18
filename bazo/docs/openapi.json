@@ -1,0 +1,4013 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Bazo API",
+    "description": "API REST pour apps mobile Bazo (TER, alertes, PDF)",
+    "version": "0.5.0"
+  },
+  "paths": {
+    "/health": {
+      "get": {
+        "summary": "Health",
+        "operationId": "health_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/auth/check": {
+      "get": {
+        "summary": "Auth Check",
+        "operationId": "auth_check_v1_auth_check_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Bazo-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Bazo-Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/profil/{id_telegram}": {
+      "get": {
+        "summary": "Get Profil",
+        "operationId": "get_profil_v1_profil__id_telegram__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id_telegram",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id Telegram"
+            }
+          },
+          {
+            "name": "X-Bazo-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Bazo-Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfilResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Put Profil",
+        "operationId": "put_profil_v1_profil__id_telegram__put",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id_telegram",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id Telegram"
+            }
+          },
+          {
+            "name": "X-Bazo-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Bazo-Token"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProfilUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfilResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/statut/{id_telegram}": {
+      "get": {
+        "summary": "Get Statut",
+        "operationId": "get_statut_v1_statut__id_telegram__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id_telegram",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id Telegram"
+            }
+          },
+          {
+            "name": "mois",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Mois"
+            }
+          },
+          {
+            "name": "X-Bazo-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Bazo-Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatutResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/incidents/{id_telegram}": {
+      "get": {
+        "summary": "Get Incidents",
+        "operationId": "get_incidents_v1_incidents__id_telegram__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id_telegram",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id Telegram"
+            }
+          },
+          {
+            "name": "mois",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Mois"
+            }
+          },
+          {
+            "name": "X-Bazo-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Bazo-Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IncidentsResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/trains/{id_telegram}": {
+      "get": {
+        "summary": "Get Trains",
+        "operationId": "get_trains_v1_trains__id_telegram__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id_telegram",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id Telegram"
+            }
+          },
+          {
+            "name": "sens",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^(aller|retour)$",
+              "title": "Sens"
+            }
+          },
+          {
+            "name": "X-Bazo-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Bazo-Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TrainsResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/checkin": {
+      "post": {
+        "summary": "Post Checkin",
+        "operationId": "post_checkin_v1_checkin_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Bazo-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Bazo-Token"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CheckinRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CheckinResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/propositions/{id_telegram}": {
+      "get": {
+        "summary": "Get Propositions",
+        "description": "Trains perturbés vus par le radar dans le créneau de l'usager, sans check-in (à confirmer).",
+        "operationId": "get_propositions_v1_propositions__id_telegram__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id_telegram",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id Telegram"
+            }
+          },
+          {
+            "name": "mois",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Mois"
+            }
+          },
+          {
+            "name": "X-Bazo-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Bazo-Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/propositions/{id_telegram}/{id_proposition}": {
+      "post": {
+        "summary": "Post Proposition",
+        "operationId": "post_proposition_v1_propositions__id_telegram___id_proposition__post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id_telegram",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id Telegram"
+            }
+          },
+          {
+            "name": "id_proposition",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Id Proposition"
+            }
+          },
+          {
+            "name": "X-Bazo-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Bazo-Token"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PropositionDecision"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/signalements/types": {
+      "get": {
+        "summary": "Get Signalements Types",
+        "operationId": "get_signalements_types_v1_signalements_types_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/signalements": {
+      "post": {
+        "summary": "Post Signalement",
+        "description": "Crée un signalement. Sans check-in de l'auteur sur ce train : 409. Aucun effet PDF.",
+        "operationId": "post_signalement_v1_signalements_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Bazo-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Bazo-Token"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SignalementCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/trains/{date}/{numero}/signalements": {
+      "get": {
+        "summary": "Get Signalements Train",
+        "description": "Fil du train : signalements non expirés, toujours avec la mention communautaire.",
+        "operationId": "get_signalements_train_v1_trains__date___numero__signalements_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "date",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Date"
+            }
+          },
+          {
+            "name": "numero",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Numero"
+            }
+          },
+          {
+            "name": "heure_theo",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Heure Theo"
+            }
+          },
+          {
+            "name": "id_telegram",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Id Telegram"
+            }
+          },
+          {
+            "name": "X-Bazo-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Bazo-Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/signalements/{signalement_id}/vote": {
+      "post": {
+        "summary": "Post Signalement Vote",
+        "operationId": "post_signalement_vote_v1_signalements__signalement_id__vote_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "signalement_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Signalement Id"
+            }
+          },
+          {
+            "name": "X-Bazo-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Bazo-Token"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SignalementVote"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/signalements/{signalement_id}/trajet": {
+      "post": {
+        "summary": "Post Signalement Trajet",
+        "description": "« Est-ce ton trajet ? » : seul l'auteur inscrit son propre trajet, provenance « Déclaration du voyageur ».",
+        "operationId": "post_signalement_trajet_v1_signalements__signalement_id__trajet_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "signalement_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Signalement Id"
+            }
+          },
+          {
+            "name": "X-Bazo-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Bazo-Token"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SignalementTrajet"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/checkout/pending/{id_telegram}": {
+      "get": {
+        "summary": "Get Checkout Pending",
+        "operationId": "get_checkout_pending_v1_checkout_pending__id_telegram__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id_telegram",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id Telegram"
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Date"
+            }
+          },
+          {
+            "name": "X-Bazo-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Bazo-Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CheckoutPendingResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/checkout/{trajet_id}": {
+      "post": {
+        "summary": "Post Checkout",
+        "operationId": "post_checkout_v1_checkout__trajet_id__post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "trajet_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Trajet Id"
+            }
+          },
+          {
+            "name": "X-Bazo-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Bazo-Token"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CheckoutActionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CheckoutResultResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/pdf/mois/{id_telegram}": {
+      "get": {
+        "summary": "Get Pdf Mois",
+        "operationId": "get_pdf_mois_v1_pdf_mois__id_telegram__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id_telegram",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id Telegram"
+            }
+          },
+          {
+            "name": "X-Bazo-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Bazo-Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PdfMoisResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/pdf/{id_telegram}/link": {
+      "post": {
+        "summary": "Post Pdf Link",
+        "operationId": "post_pdf_link_v1_pdf__id_telegram__link_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id_telegram",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id Telegram"
+            }
+          },
+          {
+            "name": "mois",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Mois"
+            }
+          },
+          {
+            "name": "X-Bazo-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Bazo-Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PdfLinkResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/pdf/download": {
+      "get": {
+        "summary": "Get Pdf Download",
+        "operationId": "get_pdf_download_v1_pdf_download_get",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/pdf/{id_telegram}": {
+      "get": {
+        "summary": "Get Pdf",
+        "operationId": "get_pdf_v1_pdf__id_telegram__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id_telegram",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id Telegram"
+            }
+          },
+          {
+            "name": "mois",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Mois"
+            }
+          },
+          {
+            "name": "X-Bazo-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Bazo-Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/live/sillon": {
+      "get": {
+        "summary": "Get Live Sillon",
+        "description": "Instantané public du Sillon Lorrain (mini-map) : tracé, état des tronçons, trains actifs.",
+        "operationId": "get_live_sillon_v1_live_sillon_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/live/{id_telegram}": {
+      "get": {
+        "summary": "Get Live Accueil",
+        "description": "Écran d'accueil : instantané du réseau + prochain train de l'usager (retard exact, alternatives) + PDF.",
+        "operationId": "get_live_accueil_v1_live__id_telegram__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id_telegram",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id Telegram"
+            }
+          },
+          {
+            "name": "X-Bazo-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Bazo-Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/habituels/{id_telegram}": {
+      "get": {
+        "summary": "Get Habituels",
+        "operationId": "get_habituels_v1_habituels__id_telegram__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id_telegram",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id Telegram"
+            }
+          },
+          {
+            "name": "X-Bazo-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Bazo-Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Post Habituel",
+        "operationId": "post_habituel_v1_habituels__id_telegram__post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id_telegram",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id Telegram"
+            }
+          },
+          {
+            "name": "X-Bazo-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Bazo-Token"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HabituelCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Habituel",
+        "operationId": "delete_habituel_v1_habituels__id_telegram__delete",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id_telegram",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id Telegram"
+            }
+          },
+          {
+            "name": "heure",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^\\d{2}h\\d{2}$",
+              "title": "Heure"
+            }
+          },
+          {
+            "name": "sens",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^(aller|retour)$",
+              "title": "Sens"
+            }
+          },
+          {
+            "name": "X-Bazo-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Bazo-Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/greve/{id_telegram}": {
+      "get": {
+        "summary": "Get Greve",
+        "description": "Plan de transport adapté (aujourd'hui + demain) sur les segments de l'usager.",
+        "operationId": "get_greve_v1_greve__id_telegram__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id_telegram",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id Telegram"
+            }
+          },
+          {
+            "name": "X-Bazo-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Bazo-Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/hub/{id_telegram}": {
+      "get": {
+        "summary": "Get Hub",
+        "operationId": "get_hub_v1_hub__id_telegram__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id_telegram",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id Telegram"
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Date"
+            }
+          },
+          {
+            "name": "X-Bazo-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Bazo-Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/hub/{id_telegram}/bloque": {
+      "post": {
+        "summary": "Post Hub Bloque",
+        "operationId": "post_hub_bloque_v1_hub__id_telegram__bloque_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id_telegram",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id Telegram"
+            }
+          },
+          {
+            "name": "X-Bazo-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Bazo-Token"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BloqueCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/hub/{id_telegram}/offres": {
+      "post": {
+        "summary": "Post Hub Offre",
+        "operationId": "post_hub_offre_v1_hub__id_telegram__offres_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id_telegram",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id Telegram"
+            }
+          },
+          {
+            "name": "X-Bazo-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Bazo-Token"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OffreCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/hub/{id_telegram}/offres/{offre_id}/reserver": {
+      "post": {
+        "summary": "Post Hub Reserver",
+        "operationId": "post_hub_reserver_v1_hub__id_telegram__offres__offre_id__reserver_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id_telegram",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id Telegram"
+            }
+          },
+          {
+            "name": "offre_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Offre Id"
+            }
+          },
+          {
+            "name": "X-Bazo-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Bazo-Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Hub Reserver",
+        "operationId": "delete_hub_reserver_v1_hub__id_telegram__offres__offre_id__reserver_delete",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id_telegram",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id Telegram"
+            }
+          },
+          {
+            "name": "offre_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Offre Id"
+            }
+          },
+          {
+            "name": "X-Bazo-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Bazo-Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/hub/{id_telegram}/offres/{offre_id}/statut": {
+      "post": {
+        "summary": "Post Hub Offre Statut",
+        "operationId": "post_hub_offre_statut_v1_hub__id_telegram__offres__offre_id__statut_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id_telegram",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id Telegram"
+            }
+          },
+          {
+            "name": "offre_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Offre Id"
+            }
+          },
+          {
+            "name": "X-Bazo-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Bazo-Token"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OffreStatut"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/hub/{id_telegram}/offres/{offre_id}/abus": {
+      "post": {
+        "summary": "Post Hub Abus",
+        "operationId": "post_hub_abus_v1_hub__id_telegram__offres__offre_id__abus_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id_telegram",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id Telegram"
+            }
+          },
+          {
+            "name": "offre_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Offre Id"
+            }
+          },
+          {
+            "name": "X-Bazo-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Bazo-Token"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AbusCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/beta/invitation": {
+      "get": {
+        "summary": "Get Beta Invitation",
+        "operationId": "get_beta_invitation_v1_beta_invitation_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/beta/stats": {
+      "get": {
+        "summary": "Get Beta Stats",
+        "operationId": "get_beta_stats_v1_beta_stats_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/geo/regions": {
+      "get": {
+        "summary": "Get Geo Regions",
+        "operationId": "get_geo_regions_v1_geo_regions_get",
+        "parameters": [
+          {
+            "name": "actives",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": true,
+              "title": "Actives"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/geo/gares": {
+      "get": {
+        "summary": "Get Geo Gares",
+        "operationId": "get_geo_gares_v1_geo_gares_get",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "Q"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "grand_est",
+              "title": "Region"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/geo/uic/{nom_gare}": {
+      "get": {
+        "summary": "Get Geo Uic",
+        "operationId": "get_geo_uic_v1_geo_uic__nom_gare__get",
+        "parameters": [
+          {
+            "name": "nom_gare",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Nom Gare"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "grand_est",
+              "title": "Region"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/geo/radar": {
+      "get": {
+        "summary": "Get Geo Radar",
+        "operationId": "get_geo_radar_v1_geo_radar_get",
+        "parameters": [
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "grand_est",
+              "title": "Region"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/geo/summary": {
+      "get": {
+        "summary": "Get Geo Summary",
+        "operationId": "get_geo_summary_v1_geo_summary_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/tgv/radar": {
+      "get": {
+        "summary": "Get Tgv Radar",
+        "operationId": "get_tgv_radar_v1_tgv_radar_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/admin/stats": {
+      "get": {
+        "summary": "Admin Stats",
+        "operationId": "admin_stats_v1_admin_stats_get",
+        "parameters": [
+          {
+            "name": "X-Admin-Key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Admin-Key"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/admin/push-test": {
+      "post": {
+        "summary": "Admin Push Test",
+        "operationId": "admin_push_test_v1_admin_push_test_post",
+        "parameters": [
+          {
+            "name": "X-Admin-Key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Admin-Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminPushTest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/account/{id_telegram}/export": {
+      "get": {
+        "summary": "Account Export",
+        "operationId": "account_export_v1_account__id_telegram__export_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id_telegram",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id Telegram"
+            }
+          },
+          {
+            "name": "X-Bazo-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Bazo-Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/account/{id_telegram}": {
+      "delete": {
+        "summary": "Account Delete",
+        "operationId": "account_delete_v1_account__id_telegram__delete",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id_telegram",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id Telegram"
+            }
+          },
+          {
+            "name": "X-Bazo-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Bazo-Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/reclamation/{id_telegram}": {
+      "get": {
+        "summary": "Get Reclamation Kit",
+        "operationId": "get_reclamation_kit_v1_reclamation__id_telegram__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id_telegram",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id Telegram"
+            }
+          },
+          {
+            "name": "mois",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Mois"
+            }
+          },
+          {
+            "name": "X-Bazo-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Bazo-Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/devices/{id_telegram}": {
+      "post": {
+        "summary": "Register Device",
+        "operationId": "register_device_v1_devices__id_telegram__post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id_telegram",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id Telegram"
+            }
+          },
+          {
+            "name": "X-Bazo-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Bazo-Token"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeviceRegister"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Unregister Device",
+        "operationId": "unregister_device_v1_devices__id_telegram__delete",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id_telegram",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id Telegram"
+            }
+          },
+          {
+            "name": "device_token",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 8,
+              "title": "Device Token"
+            }
+          },
+          {
+            "name": "X-Bazo-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Bazo-Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/webhooks/ping": {
+      "post": {
+        "summary": "Webhook Ping",
+        "operationId": "webhook_ping_v1_webhooks_ping_post",
+        "parameters": [
+          {
+            "name": "X-Admin-Key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Admin-Key"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/webhooks/deploy": {
+      "post": {
+        "summary": "Webhook Deploy",
+        "description": "Notification déploiement CI/CD → admin Telegram.",
+        "operationId": "webhook_deploy_v1_webhooks_deploy_post",
+        "parameters": [
+          {
+            "name": "X-Admin-Key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Admin-Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeployWebhook"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AbusCreate": {
+        "properties": {
+          "motif": {
+            "type": "string",
+            "maxLength": 120,
+            "title": "Motif",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "title": "AbusCreate"
+      },
+      "AdminPushTest": {
+        "properties": {
+          "id_telegram": {
+            "type": "string",
+            "title": "Id Telegram"
+          },
+          "titre": {
+            "type": "string",
+            "title": "Titre",
+            "default": "Test Bazo"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message",
+            "default": "Notification test"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id_telegram"
+        ],
+        "title": "AdminPushTest"
+      },
+      "BloqueCreate": {
+        "properties": {
+          "date": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "title": "Date"
+          },
+          "numero_train": {
+            "type": "string",
+            "maxLength": 12,
+            "title": "Numero Train"
+          },
+          "heure_theo": {
+            "type": "string",
+            "maxLength": 5,
+            "title": "Heure Theo"
+          },
+          "gare": {
+            "type": "string",
+            "maxLength": 60,
+            "title": "Gare"
+          }
+        },
+        "type": "object",
+        "required": [
+          "date",
+          "numero_train",
+          "heure_theo",
+          "gare"
+        ],
+        "title": "BloqueCreate"
+      },
+      "CheckinRequest": {
+        "properties": {
+          "id_telegram": {
+            "type": "string",
+            "title": "Id Telegram"
+          },
+          "sens": {
+            "type": "string",
+            "pattern": "^(aller|retour)$",
+            "title": "Sens"
+          },
+          "numero_train": {
+            "type": "string",
+            "title": "Numero Train"
+          },
+          "heure_theo": {
+            "type": "string",
+            "title": "Heure Theo"
+          },
+          "heure_arrivee_theo": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Heure Arrivee Theo"
+          },
+          "destination": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Destination"
+          },
+          "date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Date"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id_telegram",
+          "sens",
+          "numero_train",
+          "heure_theo"
+        ],
+        "title": "CheckinRequest"
+      },
+      "CheckinResponse": {
+        "properties": {
+          "ok": {
+            "type": "boolean",
+            "title": "Ok"
+          },
+          "date": {
+            "type": "string",
+            "title": "Date"
+          },
+          "numero_train": {
+            "type": "string",
+            "title": "Numero Train"
+          },
+          "heure_theo": {
+            "type": "string",
+            "title": "Heure Theo"
+          },
+          "sens": {
+            "type": "string",
+            "title": "Sens"
+          },
+          "statut": {
+            "type": "string",
+            "title": "Statut",
+            "default": "en_attente"
+          }
+        },
+        "type": "object",
+        "required": [
+          "ok",
+          "date",
+          "numero_train",
+          "heure_theo",
+          "sens"
+        ],
+        "title": "CheckinResponse"
+      },
+      "CheckoutActionRequest": {
+        "properties": {
+          "id_telegram": {
+            "type": "string",
+            "title": "Id Telegram"
+          },
+          "action": {
+            "type": "string",
+            "pattern": "^(ok|suppr|suiv|bus|rien)$",
+            "title": "Action"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id_telegram",
+          "action"
+        ],
+        "title": "CheckoutActionRequest"
+      },
+      "CheckoutPendingResponse": {
+        "properties": {
+          "date": {
+            "type": "string",
+            "title": "Date"
+          },
+          "nb_pending": {
+            "type": "integer",
+            "title": "Nb Pending"
+          },
+          "trajets": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Trajets"
+          }
+        },
+        "type": "object",
+        "required": [
+          "date",
+          "nb_pending",
+          "trajets"
+        ],
+        "title": "CheckoutPendingResponse"
+      },
+      "CheckoutResultResponse": {
+        "properties": {
+          "ok": {
+            "type": "boolean",
+            "title": "Ok"
+          },
+          "statut": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Statut"
+          },
+          "retard_min": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Retard Min"
+          },
+          "suppression": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Suppression"
+          },
+          "detail": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "required": [
+          "ok"
+        ],
+        "title": "CheckoutResultResponse"
+      },
+      "DeployWebhook": {
+        "properties": {
+          "version": {
+            "type": "string",
+            "title": "Version",
+            "default": "unknown"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "title": "DeployWebhook"
+      },
+      "DeviceRegister": {
+        "properties": {
+          "device_token": {
+            "type": "string",
+            "maxLength": 512,
+            "minLength": 8,
+            "title": "Device Token"
+          },
+          "plateforme": {
+            "type": "string",
+            "maxLength": 32,
+            "title": "Plateforme",
+            "default": "unknown"
+          }
+        },
+        "type": "object",
+        "required": [
+          "device_token"
+        ],
+        "title": "DeviceRegister"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "HabituelCreate": {
+        "properties": {
+          "heure": {
+            "type": "string",
+            "pattern": "^\\d{2}h\\d{2}$",
+            "title": "Heure"
+          },
+          "sens": {
+            "type": "string",
+            "pattern": "^(aller|retour)$",
+            "title": "Sens"
+          },
+          "numero_train": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 12
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Numero Train"
+          }
+        },
+        "type": "object",
+        "required": [
+          "heure",
+          "sens"
+        ],
+        "title": "HabituelCreate"
+      },
+      "HealthResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "db": {
+            "type": "string",
+            "title": "Db"
+          },
+          "date": {
+            "type": "string",
+            "title": "Date"
+          },
+          "version": {
+            "type": "string",
+            "title": "Version",
+            "default": "0.5.0"
+          },
+          "backend": {
+            "type": "string",
+            "title": "Backend",
+            "default": ""
+          },
+          "regions": {
+            "type": "integer",
+            "title": "Regions",
+            "default": 0
+          },
+          "radar_axes": {
+            "type": "integer",
+            "title": "Radar Axes",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "db",
+          "date"
+        ],
+        "title": "HealthResponse"
+      },
+      "IncidentsResponse": {
+        "properties": {
+          "mois": {
+            "type": "string",
+            "title": "Mois"
+          },
+          "nb_incidents": {
+            "type": "integer",
+            "title": "Nb Incidents"
+          },
+          "incidents": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Incidents"
+          }
+        },
+        "type": "object",
+        "required": [
+          "mois",
+          "nb_incidents",
+          "incidents"
+        ],
+        "title": "IncidentsResponse"
+      },
+      "OffreCreate": {
+        "properties": {
+          "hub_id": {
+            "type": "integer",
+            "title": "Hub Id"
+          },
+          "destination": {
+            "type": "string",
+            "maxLength": 60,
+            "title": "Destination"
+          },
+          "places": {
+            "type": "integer",
+            "maximum": 7.0,
+            "minimum": 1.0,
+            "title": "Places"
+          },
+          "point_rdv_code": {
+            "type": "string",
+            "maxLength": 20,
+            "title": "Point Rdv Code"
+          },
+          "depart": {
+            "type": "string",
+            "pattern": "^\\d{2}[h:]\\d{2}$",
+            "title": "Depart"
+          },
+          "participation_eur": {
+            "type": "number",
+            "maximum": 200.0,
+            "minimum": 0.0,
+            "title": "Participation Eur",
+            "default": 0
+          },
+          "contact": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 80
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Contact"
+          },
+          "accepte_charte": {
+            "type": "boolean",
+            "title": "Accepte Charte",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "hub_id",
+          "destination",
+          "places",
+          "point_rdv_code",
+          "depart"
+        ],
+        "title": "OffreCreate"
+      },
+      "OffreStatut": {
+        "properties": {
+          "statut": {
+            "type": "string",
+            "pattern": "^(partie|annulee)$",
+            "title": "Statut"
+          }
+        },
+        "type": "object",
+        "required": [
+          "statut"
+        ],
+        "title": "OffreStatut"
+      },
+      "PdfLinkResponse": {
+        "properties": {
+          "token": {
+            "type": "string",
+            "title": "Token"
+          },
+          "url": {
+            "type": "string",
+            "title": "Url"
+          },
+          "expires_at": {
+            "type": "string",
+            "title": "Expires At"
+          },
+          "mois": {
+            "type": "string",
+            "title": "Mois"
+          },
+          "mois_libelle": {
+            "type": "string",
+            "title": "Mois Libelle"
+          },
+          "ttl_sec": {
+            "type": "integer",
+            "title": "Ttl Sec"
+          }
+        },
+        "type": "object",
+        "required": [
+          "token",
+          "url",
+          "expires_at",
+          "mois",
+          "mois_libelle",
+          "ttl_sec"
+        ],
+        "title": "PdfLinkResponse"
+      },
+      "PdfMoisItem": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "libelle": {
+            "type": "string",
+            "title": "Libelle"
+          }
+        },
+        "type": "object",
+        "required": [
+          "code",
+          "libelle"
+        ],
+        "title": "PdfMoisItem"
+      },
+      "PdfMoisResponse": {
+        "properties": {
+          "nb_mois": {
+            "type": "integer",
+            "title": "Nb Mois"
+          },
+          "mois": {
+            "items": {
+              "$ref": "#/components/schemas/PdfMoisItem"
+            },
+            "type": "array",
+            "title": "Mois"
+          }
+        },
+        "type": "object",
+        "required": [
+          "nb_mois",
+          "mois"
+        ],
+        "title": "PdfMoisResponse"
+      },
+      "ProfilResponse": {
+        "properties": {
+          "id_telegram": {
+            "type": "string",
+            "title": "Id Telegram"
+          },
+          "prenom": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Prenom"
+          },
+          "nom": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Nom"
+          },
+          "gare_depart": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Gare Depart"
+          },
+          "heures": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Heures"
+          },
+          "gare_retour": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Gare Retour"
+          },
+          "heures_retour": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Heures Retour"
+          },
+          "alertes_actives": {
+            "type": "boolean",
+            "title": "Alertes Actives"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id_telegram",
+          "prenom",
+          "nom",
+          "gare_depart",
+          "heures",
+          "gare_retour",
+          "heures_retour",
+          "alertes_actives"
+        ],
+        "title": "ProfilResponse"
+      },
+      "ProfilUpdate": {
+        "properties": {
+          "prenom": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 40
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Prenom"
+          },
+          "gare_depart": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 60
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Gare Depart"
+          },
+          "gare_retour": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 60
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Gare Retour"
+          },
+          "heures": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^\\d{2}h-\\d{2}h$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Heures"
+          },
+          "heures_retour": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^\\d{2}h-\\d{2}h$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Heures Retour"
+          },
+          "jours_actifs": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-6](,[0-6])*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Jours Actifs"
+          },
+          "alertes_actives": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Alertes Actives"
+          },
+          "vacances_jusquau": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^(\\d{4}-\\d{2}-\\d{2})?$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Vacances Jusquau"
+          }
+        },
+        "type": "object",
+        "title": "ProfilUpdate"
+      },
+      "PropositionDecision": {
+        "properties": {
+          "action": {
+            "type": "string",
+            "pattern": "^(accepter|refuser)$",
+            "title": "Action"
+          }
+        },
+        "type": "object",
+        "required": [
+          "action"
+        ],
+        "title": "PropositionDecision"
+      },
+      "SignalementCreate": {
+        "properties": {
+          "id_telegram": {
+            "type": "string",
+            "title": "Id Telegram"
+          },
+          "date": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "title": "Date"
+          },
+          "numero_train": {
+            "type": "string",
+            "maxLength": 12,
+            "minLength": 1,
+            "title": "Numero Train"
+          },
+          "heure_theo": {
+            "type": "string",
+            "maxLength": 5,
+            "minLength": 4,
+            "title": "Heure Theo"
+          },
+          "code_type": {
+            "type": "string",
+            "maxLength": 40,
+            "title": "Code Type"
+          },
+          "valeur": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 4
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Valeur"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id_telegram",
+          "date",
+          "numero_train",
+          "heure_theo",
+          "code_type"
+        ],
+        "title": "SignalementCreate"
+      },
+      "SignalementTrajet": {
+        "properties": {
+          "id_telegram": {
+            "type": "string",
+            "title": "Id Telegram"
+          },
+          "action": {
+            "type": "string",
+            "pattern": "^(inscrire)$",
+            "title": "Action"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id_telegram",
+          "action"
+        ],
+        "title": "SignalementTrajet"
+      },
+      "SignalementVote": {
+        "properties": {
+          "id_telegram": {
+            "type": "string",
+            "title": "Id Telegram"
+          },
+          "vote": {
+            "type": "string",
+            "pattern": "^(confirme|refute)$",
+            "title": "Vote"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id_telegram",
+          "vote"
+        ],
+        "title": "SignalementVote"
+      },
+      "StatutResponse": {
+        "properties": {
+          "mois": {
+            "type": "string",
+            "title": "Mois"
+          },
+          "mois_libelle": {
+            "type": "string",
+            "title": "Mois Libelle"
+          },
+          "retard_min": {
+            "type": "integer",
+            "title": "Retard Min"
+          },
+          "suppressions": {
+            "type": "integer",
+            "title": "Suppressions"
+          },
+          "nb_incidents": {
+            "type": "integer",
+            "title": "Nb Incidents"
+          },
+          "nb_trajets": {
+            "type": "integer",
+            "title": "Nb Trajets"
+          },
+          "barre_gf": {
+            "type": "string",
+            "title": "Barre Gf"
+          },
+          "statut_gf": {
+            "type": "string",
+            "title": "Statut Gf"
+          },
+          "conseil_gf": {
+            "type": "string",
+            "title": "Conseil Gf"
+          }
+        },
+        "type": "object",
+        "required": [
+          "mois",
+          "mois_libelle",
+          "retard_min",
+          "suppressions",
+          "nb_incidents",
+          "nb_trajets",
+          "barre_gf",
+          "statut_gf",
+          "conseil_gf"
+        ],
+        "title": "StatutResponse"
+      },
+      "TrainItem": {
+        "properties": {
+          "numero_train": {
+            "type": "string",
+            "title": "Numero Train"
+          },
+          "heure_theo": {
+            "type": "string",
+            "title": "Heure Theo"
+          },
+          "heure_arrivee_theo": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Heure Arrivee Theo"
+          },
+          "destination": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Destination"
+          },
+          "gare_depart": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Gare Depart"
+          },
+          "gare_arrivee": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Gare Arrivee"
+          }
+        },
+        "type": "object",
+        "required": [
+          "numero_train",
+          "heure_theo"
+        ],
+        "title": "TrainItem"
+      },
+      "TrainsResponse": {
+        "properties": {
+          "sens": {
+            "type": "string",
+            "title": "Sens"
+          },
+          "date": {
+            "type": "string",
+            "title": "Date"
+          },
+          "tranche": {
+            "type": "string",
+            "title": "Tranche"
+          },
+          "gare_depart": {
+            "type": "string",
+            "title": "Gare Depart"
+          },
+          "gare_arrivee": {
+            "type": "string",
+            "title": "Gare Arrivee"
+          },
+          "nb_trains": {
+            "type": "integer",
+            "title": "Nb Trains"
+          },
+          "trains": {
+            "items": {
+              "$ref": "#/components/schemas/TrainItem"
+            },
+            "type": "array",
+            "title": "Trains"
+          }
+        },
+        "type": "object",
+        "required": [
+          "sens",
+          "date",
+          "tranche",
+          "gare_depart",
+          "gare_arrivee",
+          "nb_trains",
+          "trains"
+        ],
+        "title": "TrainsResponse"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    },
+    "securitySchemes": {
+      "HTTPBearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

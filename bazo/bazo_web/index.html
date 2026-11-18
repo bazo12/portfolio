@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Bazo — ton TER, en clair</title>
+  <meta name="description" content="Bazo suit tes trains TER sur le Sillon Lorrain, t'alerte en cas d'incident et prépare ton attestation Garantie Fiabilité." />
+  <meta name="theme-color" content="#1B2A4A" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Bazo" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="icon.svg" />
+  <link rel="stylesheet" href="app.css" />
+</head>
+<body>
+  <noscript><p class="noscript">Bazo a besoin de JavaScript pour afficher tes trains.</p></noscript>
+
+  <!-- ============================ Accueil / connexion ============================ -->
+  <section id="onboard" class="onboard hidden" aria-label="Bienvenue">
+    <div class="ob-hero">
+      <div class="brand"><span class="brand-dot"></span>Bazo</div>
+      <h1>Ton TER,<br />en clair.</h1>
+      <p class="ob-lead">Le Sillon Lorrain en temps réel, tes retards comptés à la minute et ton attestation Garantie Fiabilité prête quand il le faut.</p>
+    </div>
+    <ul class="ob-benefits">
+      <li><span class="ob-ico ok"></span><div><b>Ton prochain train, maintenant</b><small>Retard exact, train supprimé, meilleure alternative.</small></div></li>
+      <li><span class="ob-ico amber"></span><div><b>Chaque minute compte</b><small>Tes trajets validés alimentent ton attestation, sans rien ressaisir.</small></div></li>
+      <li><span class="ob-ico indigo"></span><div><b>Ensemble sur le quai</b><small>Signalements entre voyageurs et entraide quand le train ne vient pas.</small></div></li>
+    </ul>
+    <form id="login-form" class="ob-form" autocomplete="off">
+      <label>Identifiant Telegram<input id="in-id" inputmode="numeric" pattern="[0-9]{5,15}" required placeholder="ex. 123456789" /></label>
+      <label>Jeton d'accès<input id="in-token" type="password" required placeholder="donné par /token dans le bot" /></label>
+      <p id="login-err" class="form-msg" role="alert"></p>
+      <button class="btn primary big" type="submit">Ouvrir Bazo</button>
+      <p class="ob-help">Pas encore de compte ? Écris à <b>@BazoTER_bot</b> sur Telegram, tape <code>/start</code> puis <code>/token</code>.</p>
+    </form>
+  </section>
+
+  <!-- ============================ Application ============================ -->
+  <main id="app" class="app hidden">
+    <!-- ---------- Accueil ---------- -->
+    <section id="view-accueil" class="view" data-view="accueil">
+      <header class="map-wrap" id="map-wrap">
+        <svg id="map-svg" role="img" aria-label="Carte du Sillon Lorrain"></svg>
+        <div class="map-top">
+          <div class="brand light"><span class="brand-dot"></span>Bazo</div>
+          <div class="map-age" id="map-age">…</div>
+        </div>
+        <div class="map-bottom">
+          <span class="pill" id="map-badge"><i></i><span id="map-badge-txt">Chargement</span></span>
+          <span class="map-tip hidden" id="map-tip"></span>
+        </div>
+      </header>
+
+      <div class="sheet">
+        <div class="sheet-grab" aria-hidden="true"></div>
+        <div id="banner-checkout" class="banner hidden"></div>
+
+        <article class="card hero" id="card-nt">
+          <div class="eyebrow" id="nt-eyebrow">Mon prochain train</div>
+          <div class="hero-head">
+            <div class="hero-time"><span id="nt-time">—</span><small id="nt-plan"></small></div>
+            <span class="status" id="nt-status"></span>
+          </div>
+          <div class="hero-route" id="nt-route">Mon trajet</div>
+          <p class="hero-sub" id="nt-sub"></p>
+          <div class="hero-actions">
+            <button class="btn primary" id="btn-pdf">Attestation PDF</button>
+            <button class="btn ghost" id="btn-go-trajet">Déclarer mon trajet</button>
+          </div>
+          <p class="hint" id="pdf-msg"></p>
+        </article>
+
+        <section id="nt-alt" class="list-card hidden"></section>
+        <section id="nt-next" class="list-card hidden"></section>
+
+        <section class="card soft" id="card-greve-today"></section>
+        <section class="card soft" id="card-stats"></section>
+      </div>
+    </section>
+
+    <!-- ---------- Trajet ---------- -->
+    <section id="view-trajet" class="view hidden" data-view="trajet">
+      <header class="page-head">
+        <h2>Mon trajet</h2>
+        <p>Déclare le train que tu prends : chaque minute de retard validée compte pour ton attestation.</p>
+      </header>
+      <div id="trajet-pending" class="card hidden"></div>
+      <div class="segmented" role="tablist" id="sens-switch">
+        <button role="tab" data-sens="aller" class="on">Aller</button>
+        <button role="tab" data-sens="retour">Retour</button>
+      </div>
+      <p class="muted" id="trajet-ctx"></p>
+      <div id="trajet-liste" class="list-card"></div>
+      <section class="card" id="trajet-props"></section>
+    </section>
+
+    <!-- ---------- Fil ---------- -->
+    <section id="view-fil" class="view hidden" data-view="fil">
+      <header class="page-head">
+        <h2>À bord</h2>
+        <p>Ce que les voyageurs signalent sur tes trains du jour. Information voyageurs, non vérifiée par SNCF.</p>
+      </header>
+      <div id="fil-trains" class="chips"></div>
+      <div id="fil-contenu"></div>
+    </section>
+
+    <!-- ---------- Entraide ---------- -->
+    <section id="view-entraide" class="view hidden" data-view="entraide">
+      <header class="page-head">
+        <h2>Entraide</h2>
+        <p>Quand un train ne vient pas, les voyageurs du même quai s'organisent. Partage de frais uniquement, jamais une annonce SNCF.</p>
+      </header>
+      <div id="hub-contenu"></div>
+    </section>
+
+    <!-- ---------- Moi ---------- -->
+    <section id="view-moi" class="view hidden" data-view="moi">
+      <header class="page-head">
+        <h2 id="moi-titre">Moi</h2>
+        <p id="moi-sous"></p>
+      </header>
+      <div id="moi-contenu"></div>
+    </section>
+
+    <nav class="tabbar" aria-label="Navigation principale">
+      <button data-tab="accueil" class="on" aria-label="Accueil"><svg viewBox="0 0 24 24"><path d="M4 11.5 12 5l8 6.5V19a1 1 0 0 1-1 1h-4.5v-5h-5v5H5a1 1 0 0 1-1-1z"/></svg><span>Accueil</span></button>
+      <button data-tab="trajet" aria-label="Trajet"><svg viewBox="0 0 24 24"><path d="M6 4h12a2 2 0 0 1 2 2v9a3 3 0 0 1-3 3l1.5 2h-2l-1.5-2h-6L7.5 20h-2L7 18a3 3 0 0 1-3-3V6a2 2 0 0 1 2-2zm0 3v5h12V7zm2 7a1.3 1.3 0 1 0 0 2.6A1.3 1.3 0 0 0 8 14zm8 0a1.3 1.3 0 1 0 0 2.6 1.3 1.3 0 0 0 0-2.6z"/></svg><span>Trajet</span></button>
+      <button data-tab="fil" aria-label="À bord"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 1 9 9c0 4.5-3.6 7.6-9 10-5.4-2.4-9-5.5-9-10a9 9 0 0 1 9-9zm0 5a1.4 1.4 0 1 0 0 2.8A1.4 1.4 0 0 0 12 8zm-1 4.5V17h2v-4.5z"/></svg><span>À bord</span></button>
+      <button data-tab="entraide" aria-label="Entraide"><svg viewBox="0 0 24 24"><path d="M7.5 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm9 0a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zM3 18.5c0-2.5 2-4.5 4.5-4.5 1.3 0 2.5.5 3.3 1.4A4.5 4.5 0 0 1 21 18.5V20H3z"/></svg><span>Entraide</span></button>
+      <button data-tab="moi" aria-label="Moi"><svg viewBox="0 0 24 24"><path d="M12 12a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9zm0 2c-4.4 0-8 2.2-8 5v2h16v-2c0-2.8-3.6-5-8-5z"/></svg><span>Moi</span></button>
+    </nav>
+  </main>
+
+  <!-- ============================ Feuille modale ============================ -->
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="modal-back" data-close></div>
+    <div class="modal-card">
+      <div class="sheet-grab" aria-hidden="true"></div>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+
+  <script src="app.js" defer></script>
+</body>
+</html>

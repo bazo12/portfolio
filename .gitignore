@@ -9,3 +9,9 @@ id_rsa
 id_ed25519
 SECRETS*
 *.log
+__pycache__/
+.venv/
+.dart_tool/
+build/
+android/local.properties
+ios/Flutter/ephemeral/

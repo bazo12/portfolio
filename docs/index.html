@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Bazo12</title>
-  <meta name="description" content="Bazo en service. Conciergerie terrain. Labs réseaux.">
+  <meta name="description" content="Bazo en service. Mobile Flutter. Traversée. Conciergerie. Labs réseaux.">
   <style>
     :root {
       --bg: #101114;
@@ -25,53 +25,60 @@
     header { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 40px; }
     .mark { font-weight: 600; letter-spacing: 0.08em; font-size: 13px; }
     .meta { color: var(--mute); font-size: 13px; }
-    h1 { font-size: 28px; font-weight: 500; letter-spacing: -0.03em; margin: 0 0 48px; max-width: 22ch; }
+    h1 { font-size: 28px; font-weight: 500; letter-spacing: -0.03em; margin: 0 0 48px; max-width: 24ch; }
     .hero { border-top: 1px solid var(--line); padding: 28px 0 32px; }
     .hero h2 { font-size: 13px; font-weight: 600; letter-spacing: 0.12em; margin: 0 0 8px; }
     .status {
       display: inline-block;
-      font-size: 11px;
-      letter-spacing: 0.14em;
-      font-weight: 600;
-      color: var(--live);
-      margin-bottom: 12px;
+      font-size: 11px; letter-spacing: 0.14em; font-weight: 600;
+      color: var(--live); margin-bottom: 12px;
     }
     .status.wait { color: var(--wait); }
     .hero p { margin: 0 0 12px; max-width: 46ch; }
     .procs { color: var(--mute); font-size: 13px; font-variant-numeric: tabular-nums; }
     .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 1px solid var(--line); }
-    article { padding: 28px 0 8px; }
-    article:first-child { padding-right: 28px; border-right: 1px solid var(--line); }
-    article:last-child { padding-left: 28px; }
+    article { padding: 28px 24px 24px 0; }
+    article:nth-child(even) { padding-left: 28px; padding-right: 0; border-left: 1px solid var(--line); }
+    article:nth-child(n+3) { border-top: 1px solid var(--line); }
     h3 { font-size: 13px; font-weight: 600; letter-spacing: 0.12em; margin: 0 0 8px; }
-    article p { margin: 0; color: var(--fg); }
+    article p { margin: 0; }
     a { color: var(--fg); text-underline-offset: 3px; }
     a:hover { color: var(--live); }
     footer { margin-top: 56px; color: var(--mute); font-size: 13px; border-top: 1px solid var(--line); padding-top: 20px; }
     @media (max-width: 640px) {
       header { flex-direction: column; gap: 6px; }
       .grid { grid-template-columns: 1fr; }
-      article:first-child, article:last-child { padding: 28px 0 8px; border: 0; }
-      article:first-child { border-bottom: 1px solid var(--line); }
+      article, article:nth-child(even) { padding: 28px 0 8px; border: 0; }
+      article:nth-child(n+2) { border-top: 1px solid var(--line); }
     }
   </style>
 </head>
 <body>
   <header>
     <div class="mark">BAZO12</div>
-    <div class="meta">Grand Est · Linux · Windows · Réseaux</div>
+    <div class="meta">Grand Est · Linux · Flutter · Windows · Réseaux</div>
   </header>
 
-  <h1>Des outils qui tournent. Pas des pages qui expliquent.</h1>
+  <h1>Cinq projets. Le code est dans le dépôt.</h1>
 
   <section class="hero">
     <div class="status">EN SERVICE</div>
     <h2><a href="https://github.com/bazo12/portfolio/tree/main/bazo">Bazo</a></h2>
     <p>Radar TER Grand Est. Alerte seulement si le train passe par la montée et la descente du profil. Dossier PDF pour la Garantie Fiabilité.</p>
-    <p class="procs">bazo-radar · bazo-bot · bazo-api · bazo-mobile · bazo-temps-reel</p>
+    <p class="procs">bot · radar · api · pwa · temps réel</p>
   </section>
 
   <div class="grid">
+    <article>
+      <div class="status">FLUTTER</div>
+      <h3><a href="https://github.com/bazo12/portfolio/tree/main/bazo-mobile">Bazo Mobile</a></h3>
+      <p>iOS / Android. Check-in, statut, PDF. Même API que le bot.</p>
+    </article>
+    <article>
+      <div class="status wait">MAQUETTE</div>
+      <h3><a href="https://github.com/bazo12/portfolio/tree/main/traversee">Traversée</a></h3>
+      <p>Traversée Moselle. Piéton, deux-roues, véhicule. Tarifs et pôles.</p>
+    </article>
     <article>
       <div class="status wait">POSTE WINDOWS</div>
       <h3><a href="https://github.com/bazo12/portfolio/tree/main/conciergerie-zenith">Conciergerie Zénith</a></h3>

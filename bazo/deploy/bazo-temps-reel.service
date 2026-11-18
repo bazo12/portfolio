@@ -1,0 +1,16 @@
+[Unit]
+Description=Bazo Temps Reel (fusion SNCF/CFL, reports de train, greve)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/bazo
+EnvironmentFile=/opt/bazo/.env
+ExecStart=/opt/bazo/.venv/bin/python -u temps_reel_service.py
+Environment=BAZO_ALERTES_TEMPS_REEL=1
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

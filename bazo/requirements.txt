@@ -1,0 +1,25 @@
+# Bazo — dépendances Python (installer dans le venv : pip install -r requirements.txt)
+pyTelegramBotAPI==4.34.0
+requests==2.34.2
+urllib3==2.7.0
+certifi==2026.5.20
+fpdf2==2.8.7
+gtfs-realtime-bindings==2.0.0
+protobuf==7.35.0
+
+# Réservé pour la future bascule asynchrone du scanner (Phase 5) — déjà installé.
+aiohttp==3.14.1
+aiosqlite==0.22.1
+
+# Planification précise du check-out 20h.
+APScheduler==3.11.2
+
+# API REST (M1 S2 — apps mobile)
+fastapi==0.128.0
+uvicorn[standard]==0.40.0
+
+# PostgreSQL (M2 S2 — migration prod)
+psycopg2-binary==2.9.11
+
+# Redis (M11 — cache optionnel)
+redis==5.2.1

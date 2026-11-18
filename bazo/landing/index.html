@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Bazo — alertes TER, check-in, attestation Garantie Fiabilité SNCF" />
+  <title>Bazo — TER sans stress</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; margin: 0; color: #1a1a2e; line-height: 1.5; }
+    .hero {
+      background: linear-gradient(135deg, #0055a4, #003d75);
+      color: #fff; padding: 3.5rem 1.5rem 2.5rem; text-align: center;
+    }
+    .hero h1 { font-size: 2.4rem; margin: 0 0 0.5rem; }
+    .hero p { opacity: 0.95; max-width: 540px; margin: 0 auto 1.25rem; }
+    .cta { display: inline-block; background: #fff; color: #0055a4; padding: 0.85rem 1.5rem;
+      border-radius: 999px; text-decoration: none; font-weight: 600; margin: 0.25rem; }
+    .cta.secondary { background: transparent; color: #fff; border: 2px solid #fff; }
+    .beta-bar {
+      max-width: 520px; margin: 1.5rem auto 0; background: rgba(255,255,255,0.15);
+      border-radius: 12px; padding: 0.85rem 1rem; font-size: 0.9rem;
+    }
+    .beta-bar progress { width: 100%; height: 8px; margin-top: 0.35rem; }
+    section { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem; }
+    section h2 { color: #0055a4; margin-top: 0; }
+    .features { display: grid; gap: 1rem; }
+    @media (min-width: 600px) { .features { grid-template-columns: 1fr 1fr; } }
+    .card { background: #f4f7fb; padding: 1.25rem; border-radius: 12px; }
+    .regions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
+    .tag { background: #e8eef5; padding: 0.25rem 0.65rem; border-radius: 999px; font-size: 0.8rem; }
+    .tag.live { background: #0055a4; color: #fff; }
+    details { background: #f4f7fb; border-radius: 12px; padding: 0.75rem 1rem; margin-bottom: 0.5rem; }
+    summary { cursor: pointer; font-weight: 600; }
+    footer { text-align: center; padding: 2rem; color: #666; font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <h1>🚆 Bazo</h1>
+    <p>Alertes retard en temps réel, check-in matin, validation soir, attestation PDF pour la Garantie Fiabilité SNCF.</p>
+    <a class="cta" href="https://t.me/SbazoTrain_bot">Rejoindre la beta</a>
+    <a class="cta secondary" href="/app/">App web</a>
+    <div class="beta-bar" id="beta-bar">
+      <span id="beta-label">Beta Metz–Lux — chargement…</span>
+      <progress id="beta-progress" value="0" max="25"></progress>
+    </div>
+  </div>
+
+  <section>
+    <h2>Pour les usagers TER</h2>
+    <p>Grand Est en production · 12 régions preview · 13/13 France TER.</p>
+    <div class="features">
+      <div class="card"><strong>Radar 24/7</strong><br>53 axes TER · 13 régions France.</div>
+      <div class="card"><strong>Check-in / out</strong><br>Déclare ton train le matin, valide le soir en 1 clic.</div>
+      <div class="card"><strong>PDF SNCF</strong><br>Attestation mensuelle prête pour ta réclamation.</div>
+      <div class="card"><strong>Gratuit en beta</strong><br>Service tiers — non affilié SNCF.</div>
+    </div>
+    <div class="regions">
+      <span class="tag live">Grand Est</span>
+      <span class="tag">Île-de-France</span>
+      <span class="tag">Auvergne-Rhône-Alpes</span>
+      <span class="tag">Hauts-de-France</span>
+      <span class="tag">Occitanie</span>
+      <span class="tag">Nouvelle-Aquitaine</span>
+      <span class="tag">Bretagne</span>
+      <span class="tag">PACA</span>
+      <span class="tag">Normandie</span>
+      <span class="tag">BFC</span>
+      <span class="tag">CVL</span>
+      <span class="tag">Pays de la Loire</span>
+      <span class="tag">Corse</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>FAQ</h2>
+    <details>
+      <summary>C'est quoi Bazo ?</summary>
+      <p>Un assistant pour les voyageurs TER : alertes, suivi des trajets, PDF pour la Garantie Fiabilité SNCF.</p>
+    </details>
+    <details>
+      <summary>Comment m'inscrire ?</summary>
+      <p>Ouvre <a href="https://t.me/SbazoTrain_bot">@SbazoTrain_bot</a> → /start → configure tes gares et créneaux.</p>
+    </details>
+    <details>
+      <summary>L'app web, c'est quoi ?</summary>
+      <p>Alternative mobile sans installation store : <a href="/app/">/app/</a>. Token API via /token en message privé sur Telegram.</p>
+    </details>
+    <details>
+      <summary>Mes données ?</summary>
+      <p>Export et suppression via l'app web (onglet Compte) ou contact admin. Voir la <a href="privacy.html">politique de confidentialité</a>.</p>
+    </details>
+  </section>
+
+  <footer>
+    <a href="privacy.html">Confidentialité</a> ·
+    <a href="/app/">App web</a> · © Bazo 2026
+  </footer>
+  <script>
+    fetch("/v1/beta/stats")
+      .then((r) => r.json())
+      .then((b) => {
+        document.getElementById("beta-label").textContent =
+          `Beta Metz–Lux : ${b.inscrits}/${b.objectif} inscrits · +${b.inscrits_7j || 0} cette semaine · ${b.actifs_7j} actifs`;
+        document.getElementById("beta-progress").value = b.inscrits;
+        document.getElementById("beta-progress").max = b.objectif;
+      })
+      .catch(() => {
+        document.getElementById("beta-label").textContent = "Beta Metz–Lux — rejoins @SbazoTrain_bot";
+      });
+  </script>
+</body>
+</html>

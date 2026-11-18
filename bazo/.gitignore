@@ -1,5 +1,15 @@
 .env
+.env.*
 *.db
-*.log
+*.db-wal
+*.db-shm
 __pycache__/
+*.pyc
 .venv/
+bazo-venv/
+*.log
+*.pdf
+archives_gtfs/
+backups_bazo/
+SECRETS*
+*.tar.gz

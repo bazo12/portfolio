@@ -24,8 +24,14 @@ flowchart LR
   Bot --> PDF
 ```
 
-Quota API quotidien. Rotation des axes. Pas de liste de gares en dur : le segment se calcule sur le profil.
+```bash
+python3 -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env
+# remplir les jetons, valeurs vides ici
+uvicorn bazo_api.main:app --host 127.0.0.1 --port 8080
+```
 
-Service tiers, non affilié SNCF. Sillon lorrain et axes voisins.
+PWA : `/app/`. Client Flutter : [../bazo-mobile](../bazo-mobile/). Tests : `python3 tests_parcours_critique.py`.
 
-Ce dossier est la vitrine. Pas le code de production, pas la base, pas les jetons. Variables vides dans `.env.example`.
+Service tiers, non affilié SNCF. Sillon lorrain et axes voisins. Pas de base ni de jetons dans ce dépôt.
